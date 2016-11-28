@@ -10,7 +10,8 @@ Parser::Parser()
 
 void Parser::openFile() {
   file.open("/home/byldin/work/polinom/RLS_1_fileRLS_FFT_001.b",
-       ifstream::binary);
+ // file.open("/media/byldin/204E-EA5F/rls_data/regs/RLS_3_fileRLS_FFT_001.b",
+    ifstream::binary);
 
   file.seekg (0, file.end);
   length = file.tellg();

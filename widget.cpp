@@ -11,9 +11,13 @@ Widget::Widget(Parser *pars) :
 {
   ui->setupUi(this);
 
-  pixmap = new QPixmap(width(), height());
+  pixmap = new QPixmap(ui->label->width(), ui->label->height());
   pixmap->fill(Qt::white);
   length = qMin(pixmap->width(), pixmap->height()) / 3;
+
+  fact_scale = 0.1;
+
+  connect(ui->pushButton, SIGNAL (released()), this, SLOT (clearScreen()));
 
   //timer = new QTimer(this);
   //connect(timer, SIGNAL(timeout()), SLOT(update()));
@@ -34,7 +38,7 @@ void Widget::paintEvent(QPaintEvent*) {
   painter.translate(pixmap->width() / 2, pixmap->height() / 2);
 
   double s = ui->doubleSpinBox_scale->value();
-  painter.scale(s, s);
+  painter.scale(fact_scale, fact_scale);
   double line_width = ui->spinBox_linewidth->value();
 
   DATA_PACKAGE_AD data = parser->getData();
@@ -57,4 +61,24 @@ void Widget::paintEvent(QPaintEvent*) {
   ui->label->setPixmap(*pixmap);
 
   painter.end();
+}
+
+void Widget::wheelEvent(QWheelEvent *event)
+{
+   int pos = 0;
+
+   switch(event->modifiers())
+   {
+     case Qt::ControlModifier:
+       fact_scale *= qPow(1.1, event->delta() / 100.0);
+     default:
+       break;
+   }
+   event->accept();
+}
+
+void Widget::clearScreen()
+{
+  pixmap->fill();
+  cout << "Clear Screen" << endl;
 }

@@ -4,6 +4,8 @@
 #include <QWidget>
 #include <QPainter>
 #include <QTimer>
+#include <QWheelEvent>
+#include <QtMath>
 
 #include "parser.h"
 
@@ -17,10 +19,14 @@ class Widget : public QWidget
 
   protected:
      void paintEvent(QPaintEvent *);
+     void wheelEvent(QWheelEvent *);
 
   public:
     Widget(Parser *pars = 0);
     ~Widget();
+
+  public slots:
+    void clearScreen();
 
   private:
     Ui::Widget *ui;
@@ -30,6 +36,7 @@ class Widget : public QWidget
     QPainter   painter;
 
     int length;
+    double fact_scale;
 };
 
 #endif // WIDGET_H
