@@ -5,9 +5,10 @@
 #include <QPainter>
 #include <QTimer>
 #include <QWheelEvent>
+#include <QMouseEvent>
 #include <QtMath>
 
-#include "parser.h"
+#include "drawer.h"
 
 namespace Ui {
   class Widget;
@@ -22,21 +23,15 @@ class Widget : public QWidget
      void wheelEvent(QWheelEvent *);
 
   public:
-    Widget(Parser *pars = 0);
+    Widget(Drawer& drw);
     ~Widget();
 
   public slots:
-    void clearScreen();
+    void onUpdateScreen(QPixmap*);
 
   private:
     Ui::Widget *ui;
-    Parser     *parser;
-    QTimer     *timer;
-    QPixmap    *pixmap;
-    QPainter   painter;
-
-    int length;
-    double fact_scale;
+    Drawer& drawer;
 };
 
 #endif // WIDGET_H

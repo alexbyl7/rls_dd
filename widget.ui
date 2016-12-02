@@ -187,17 +187,30 @@
     <number>30</number>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="pushButtonClear">
    <property name="geometry">
     <rect>
-     <x>770</x>
-     <y>240</y>
-     <width>80</width>
+     <x>830</x>
+     <y>280</y>
+     <width>81</width>
      <height>23</height>
     </rect>
    </property>
    <property name="text">
     <string>Clear Screen</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pushButtonDefaultScale">
+   <property name="geometry">
+    <rect>
+     <x>729</x>
+     <y>280</y>
+     <width>91</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Default Scale</string>
    </property>
   </widget>
  </widget>

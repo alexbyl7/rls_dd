@@ -14,10 +14,12 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         widget.cpp \
-    parser.cpp
+    parser.cpp \
+    drawer.cpp
 
 HEADERS  += widget.h \
     parser.h \
-    rls_header.h
+    rls_header.h \
+    drawer.h
 
 FORMS    += widget.ui

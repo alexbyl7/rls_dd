@@ -1,15 +1,28 @@
 #include "widget.h"
-#include "parser.h"
+#include "drawer.h"
 
 #include <QApplication>
 #include <QWidget>
+#include <QObject>
 
 int main(int argc, char *argv[])
 {
   QApplication a(argc, argv);
-  Parser *p = new Parser();
-  Widget w(p);
-  w.show();
+
+  Drawer drawer;
+  QThread thread;
+  Widget wgt(drawer);
+
+  QObject::connect( &drawer, SIGNAL(updateScreen(QPixmap*)),
+                    &wgt,    SLOT(onUpdateScreen(QPixmap*)) );
+
+  drawer.moveToThread (&thread);
+  thread.start();
+
+  double time_one_line_ms = 7.0;
+  drawer.startProcess(time_one_line_ms);
+
+  wgt.show();
 
   return a.exec();
 }
