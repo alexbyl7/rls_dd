@@ -16,14 +16,26 @@
   <widget class="QLabel" name="label">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>721</width>
-     <height>721</height>
+     <x>760</x>
+     <y>430</y>
+     <width>151</width>
+     <height>141</height>
     </rect>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
    </property>
    <property name="text">
     <string>TextLabel</string>
+   </property>
+   <property name="scaledContents">
+    <bool>false</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+   <property name="wordWrap">
+    <bool>false</bool>
    </property>
   </widget>
   <widget class="QSlider" name="horizontalSlider_A">
@@ -190,8 +202,8 @@
   <widget class="QPushButton" name="pushButtonClear">
    <property name="geometry">
     <rect>
-     <x>830</x>
-     <y>280</y>
+     <x>750</x>
+     <y>250</y>
      <width>81</width>
      <height>23</height>
     </rect>
@@ -200,17 +212,14 @@
     <string>Clear Screen</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButtonDefaultScale">
+  <widget class="QGraphicsView" name="graphicsView">
    <property name="geometry">
     <rect>
-     <x>729</x>
-     <y>280</y>
-     <width>91</width>
-     <height>23</height>
+     <x>10</x>
+     <y>20</y>
+     <width>711</width>
+     <height>671</height>
     </rect>
-   </property>
-   <property name="text">
-    <string>Default Scale</string>
    </property>
   </widget>
  </widget>

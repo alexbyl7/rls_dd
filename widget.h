@@ -7,6 +7,7 @@
 #include <QWheelEvent>
 #include <QMouseEvent>
 #include <QtMath>
+#include <QGraphicsScene>
 
 #include "drawer.h"
 
@@ -32,6 +33,7 @@ class Widget : public QWidget
   private:
     Ui::Widget *ui;
     Drawer& drawer;
+    QGraphicsScene scene;
 };
 
 #endif // WIDGET_H

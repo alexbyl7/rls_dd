@@ -12,8 +12,8 @@ Widget::Widget(Drawer& drw) :
   ui->setupUi(this);
   connect(ui->pushButtonClear, SIGNAL (released()),
                       &drawer, SLOT (clearScreen()));
-  connect(ui->pushButtonDefaultScale, SIGNAL (released()),
-                             &drawer, SLOT (resetScaleToDefault()));
+
+  ui->graphicsView->setScene(&scene);
 }
 
 Widget::~Widget()
@@ -32,10 +32,10 @@ void Widget::wheelEvent(QWheelEvent *event)
    {
      case Qt::ControlModifier: {
        if (event->delta() > 0) {
-         drawer.increaseScaleFactor();
+         ui->graphicsView->scale(1.1, 1.1);
        }
        else {
-         drawer.decreaseScaleFactor();
+         ui->graphicsView->scale(0.9, 0.9);
        }
      }
      default:
@@ -46,5 +46,6 @@ void Widget::wheelEvent(QWheelEvent *event)
 
 void Widget::onUpdateScreen(QPixmap* pixmap)
 {
-  ui->label->setPixmap(*pixmap);
+  scene.clear();
+  scene.addPixmap(*pixmap);
 }

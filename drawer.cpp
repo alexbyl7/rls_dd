@@ -6,8 +6,7 @@ using namespace std;
 Drawer::Drawer():
   coeffs(0.7, 0.0, 0.8)
 {
-  pixmap = // new QPixmap(ui->label->width(), ui->label->height());
-    new QPixmap(600, 600);
+  pixmap = new QPixmap(600, 600);
   pixmap->fill(Qt::white);
   resetScaleToDefault();
 

@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
   drawer.moveToThread (&thread);
   thread.start();
 
-  double time_one_line_ms = 7.0;
+  double time_one_line_ms = 10.0;
   drawer.startProcess(time_one_line_ms);
 
   wgt.show();
