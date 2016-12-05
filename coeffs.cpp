@@ -23,7 +23,6 @@ void CoeffsEstimator::addRlsData(const DATA_PACKAGE_AD& data)
     if (x > max_ampl)
       max_ampl = x;
   }
-  cout << "max_ampl = " << max_ampl << endl;
 }
 
 const Coeffs& CoeffsEstimator::getCoeffs()
@@ -33,11 +32,10 @@ const Coeffs& CoeffsEstimator::getCoeffs()
       return man_coeffs;
     }
     case eCoeffsAuto: {
+
       auto_coeffs.A = 1.0;
       auto_coeffs.B = 0.0;
       auto_coeffs.C = 2 * log(255)/log(max_ampl);
-
-      cout << "C = " << auto_coeffs.C << endl;
 
       return auto_coeffs;
     }
