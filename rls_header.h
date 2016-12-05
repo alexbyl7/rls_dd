@@ -1,3 +1,6 @@
+#ifndef RLS_HEADER_H
+#define RLS_HEADER_H
+
 #define DATA_LEN_4K             16384 // uchar
 #define DATA_LEN_SRC_4K         8192 // short
 #define DATA_LEN_SPECTR_4K      4096 // float
@@ -42,3 +45,5 @@ typedef struct {
 } DATA_PACKAGE_AD;
 
 #pragma pack(pop)
+
+#endif // RLS_HEADER_H

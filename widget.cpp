@@ -64,9 +64,10 @@ void Widget::onUpdateScreen(QPixmap* pixmap)
 void Widget::changeCoeffsMode(bool is_auto)
 {
   if (is_auto)
-    drawer.setCoeffsAuto();
+    drawer.setCoeffsMode(eCoeffsAuto);
   else
-    drawer.setCoeffsManual();
+    drawer.setCoeffsMode(eCoeffsManual);
+
   ui->horizontalSlider_A->setEnabled(!is_auto);
   ui->horizontalSlider_B->setEnabled(!is_auto);
   ui->horizontalSlider_C->setEnabled(!is_auto);

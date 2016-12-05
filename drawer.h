@@ -25,7 +25,7 @@ class Drawer : public QObject
     void decreaseScaleFactor() {scale_factor -= 0.01;}
     void setCenter(const QPoint& cent) {center = cent;}
     void setCoeffs(const Coeffs& coef) {coeffs = coef;}
-    void setCoeffsAuto() {auto_coeffs = true;}
+    void setCoeffsMode(CoeffsMode m) {coeffs_est.setCoeffsMode(m);}
     void setCoeffsManual() {auto_coeffs = false;}
 
   public slots:
@@ -33,9 +33,9 @@ class Drawer : public QObject
     void clearScreen();
     void resetScaleToDefault();
 
-    void setCoeff_A(int a) {coeffs.A = (double)a/100;}
-    void setCoeff_B(int b) {coeffs.B = (double)b;}
-    void setCoeff_C(int c) {coeffs.C = (double)c/100;}
+    void setCoeff_A(int a) {coeffs_est.setManA(a);}
+    void setCoeff_B(int b) {coeffs_est.setManB(b);}
+    void setCoeff_C(int c) {coeffs_est.setManC(c);}
 
     void setLineWidth(int w) {line_width = w;}
 
