@@ -28,17 +28,25 @@ class Drawer : public QObject
   public:
     Drawer();
     ~Drawer();
+
     void startProcess(double);
+
     void increaseScaleFactor() {scale_factor += 0.01;}
     void decreaseScaleFactor() {scale_factor -= 0.01;}
     void setCenter(const QPoint& cent) {center = cent;}
     void setCoeffs(const Coeffs& coef) {coeffs = coef;}
-    double getScaleFactor() {return scale_factor;}
+    void setCoeffsAuto() {auto_coeffs = true;}
+    void setCoeffsManual() {auto_coeffs = false;}
 
   public slots:
     void process();
     void clearScreen();
     void resetScaleToDefault();
+
+    void setCoeff_A(int a) {coeffs.A = (double)a/100;}
+    void setCoeff_B(int b) {coeffs.B = (double)b/100;}
+    void setCoeff_C(int c) {coeffs.C = (double)c/100;}
+    void setLineWidth(int w) {line_width = w;}
 
   private:
     Parser   *parser;
@@ -49,6 +57,8 @@ class Drawer : public QObject
     QPoint center;
     Coeffs coeffs;
     double scale_factor;
+    int    line_width;
+    bool   auto_coeffs;
 };
 
 #endif // DRAWER_H

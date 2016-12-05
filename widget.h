@@ -29,6 +29,7 @@ class Widget : public QWidget
 
   public slots:
     void onUpdateScreen(QPixmap*);
+    void changeCoeffsMode(bool);
 
   private:
     Ui::Widget *ui;

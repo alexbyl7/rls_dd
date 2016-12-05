@@ -13,36 +13,14 @@
   <property name="windowTitle">
    <string>Widget</string>
   </property>
-  <widget class="QLabel" name="label">
-   <property name="geometry">
-    <rect>
-     <x>760</x>
-     <y>430</y>
-     <width>151</width>
-     <height>141</height>
-    </rect>
-   </property>
-   <property name="layoutDirection">
-    <enum>Qt::LeftToRight</enum>
-   </property>
-   <property name="text">
-    <string>TextLabel</string>
-   </property>
-   <property name="scaledContents">
-    <bool>false</bool>
-   </property>
-   <property name="alignment">
-    <set>Qt::AlignCenter</set>
-   </property>
-   <property name="wordWrap">
-    <bool>false</bool>
-   </property>
-  </widget>
   <widget class="QSlider" name="horizontalSlider_A">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
    <property name="geometry">
     <rect>
      <x>750</x>
-     <y>40</y>
+     <y>90</y>
      <width>160</width>
      <height>16</height>
     </rect>
@@ -58,7 +36,7 @@
    <property name="geometry">
     <rect>
      <x>750</x>
-     <y>80</y>
+     <y>130</y>
      <width>160</width>
      <height>16</height>
     </rect>
@@ -71,7 +49,7 @@
    <property name="geometry">
     <rect>
      <x>750</x>
-     <y>120</y>
+     <y>170</y>
      <width>160</width>
      <height>16</height>
     </rect>
@@ -87,7 +65,7 @@
    <property name="geometry">
     <rect>
      <x>730</x>
-     <y>40</y>
+     <y>90</y>
      <width>16</width>
      <height>16</height>
     </rect>
@@ -100,7 +78,7 @@
    <property name="geometry">
     <rect>
      <x>730</x>
-     <y>80</y>
+     <y>130</y>
      <width>16</width>
      <height>16</height>
     </rect>
@@ -113,7 +91,7 @@
    <property name="geometry">
     <rect>
      <x>730</x>
-     <y>120</y>
+     <y>170</y>
      <width>16</width>
      <height>16</height>
     </rect>
@@ -126,45 +104,13 @@
    <property name="geometry">
     <rect>
      <x>780</x>
-     <y>10</y>
+     <y>20</y>
      <width>111</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
     <string>Y = (AX+B)^C</string>
-   </property>
-  </widget>
-  <widget class="QDoubleSpinBox" name="doubleSpinBox_scale">
-   <property name="geometry">
-    <rect>
-     <x>810</x>
-     <y>160</y>
-     <width>66</width>
-     <height>24</height>
-    </rect>
-   </property>
-   <property name="maximum">
-    <double>1.000000000000000</double>
-   </property>
-   <property name="singleStep">
-    <double>0.010000000000000</double>
-   </property>
-   <property name="value">
-    <double>0.100000000000000</double>
-   </property>
-  </widget>
-  <widget class="QLabel" name="label_6">
-   <property name="geometry">
-    <rect>
-     <x>750</x>
-     <y>160</y>
-     <width>41</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Scale</string>
    </property>
   </widget>
   <widget class="QLabel" name="label_7">
@@ -220,6 +166,25 @@
      <width>711</width>
      <height>671</height>
     </rect>
+   </property>
+  </widget>
+  <widget class="QCheckBox" name="checkBox">
+   <property name="geometry">
+    <rect>
+     <x>750</x>
+     <y>60</y>
+     <width>101</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Auto Coeffs</string>
+   </property>
+   <property name="checked">
+    <bool>false</bool>
+   </property>
+   <property name="tristate">
+    <bool>false</bool>
    </property>
   </widget>
  </widget>

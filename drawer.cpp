@@ -8,6 +8,8 @@ Drawer::Drawer():
 {
   pixmap = new QPixmap(600, 600);
   pixmap->fill(Qt::white);
+
+  line_width = 30;
   resetScaleToDefault();
 
   parser = new Parser();
@@ -32,8 +34,6 @@ void Drawer::process()
   painter.setRenderHint(QPainter::Antialiasing);
   painter.translate(center);
   painter.scale(scale_factor, scale_factor);
-
-  double line_width = 30; //ui->spinBox_linewidth->value();
 
   DATA_PACKAGE_AD data = parser->getData();
   painter.rotate(360.0 * data.data.line_pos.pos / 4096);
