@@ -6,6 +6,8 @@
 #include <QPixmap>
 #include <QTimer>
 
+#include <iostream>
+
 #include "parser.h"
 #include "coeffs.h"
 

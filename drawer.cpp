@@ -36,12 +36,13 @@ void Drawer::process()
   painter.scale(scale_factor, scale_factor);
 
   DATA_PACKAGE_AD data = parser->getData();
+  coeffs_est.addRlsData(data);
   painter.rotate(360.0 * data.data.line_pos.pos / 4096);
 
   Coeffs cfs = coeffs_est.getCoeffs();
 
   int step = 1;
-  for (int i = 0; i < DATA_LEN_SPECTR_4K_16B; i++) {
+  for (int i = 0; i < DATA_LEN_SPECTR_4K; i++) {
     float x = data.data.out_data.spectr[i];
     int col = pow(cfs.A * x + cfs.B, cfs.C);
 
