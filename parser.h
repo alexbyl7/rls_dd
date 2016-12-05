@@ -15,7 +15,7 @@ public:
   ~Parser() {}
 
   void openFile();
-  DATA_PACKAGE_AD getData();
+  const DATA_PACKAGE_AD& getData();
 
 private:
   std::ifstream file;

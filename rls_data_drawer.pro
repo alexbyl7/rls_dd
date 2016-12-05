@@ -15,11 +15,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         widget.cpp \
     parser.cpp \
-    drawer.cpp
+    drawer.cpp \
+    coeffs.cpp
 
 HEADERS  += widget.h \
     parser.h \
     rls_header.h \
-    drawer.h
+    drawer.h \
+    coeffs.h
 
 FORMS    += widget.ui

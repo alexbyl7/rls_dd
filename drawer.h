@@ -7,17 +7,7 @@
 #include <QTimer>
 
 #include "parser.h"
-
-struct Coeffs {
-  Coeffs(double a,
-         double b,
-         double c)
-  {
-    A = a; B = b; C = c;
-  }
-
-  double A, B, C;
-};
+#include "coeffs.h"
 
 class Drawer : public QObject
 {
@@ -44,8 +34,9 @@ class Drawer : public QObject
     void resetScaleToDefault();
 
     void setCoeff_A(int a) {coeffs.A = (double)a/100;}
-    void setCoeff_B(int b) {coeffs.B = (double)b/100;}
+    void setCoeff_B(int b) {coeffs.B = (double)b;}
     void setCoeff_C(int c) {coeffs.C = (double)c/100;}
+
     void setLineWidth(int w) {line_width = w;}
 
   private:
@@ -56,6 +47,8 @@ class Drawer : public QObject
 
     QPoint center;
     Coeffs coeffs;
+    CoeffsEstimator coeffs_est;
+
     double scale_factor;
     int    line_width;
     bool   auto_coeffs;

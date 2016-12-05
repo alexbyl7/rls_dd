@@ -18,7 +18,7 @@ void Parser::openFile() {
   file.seekg (0, file.beg);
 }
 
-DATA_PACKAGE_AD Parser::getData()
+const DATA_PACKAGE_AD& Parser::getData()
 {
   DATA_PACKAGE_AD rls_data;
   file.read((char*)&rls_data, sizeof(DATA_PACKAGE_AD));
