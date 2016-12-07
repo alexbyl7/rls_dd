@@ -13,6 +13,7 @@ CoeffsEstimator::CoeffsEstimator():
   state(eCE_FindMaxAmpl)
 {
   high_level_percent = 75;
+  k_lin = 0.5;
 
   max_ampl = 0;
   high_level_amp = 0;
@@ -52,7 +53,7 @@ void CoeffsEstimator::processRlsData(const DATA_PACKAGE_AD& data)
 
         if ((x < SIGMA_NOISE) && (x > 1e8)) continue;
 
-        for (unsigned i = HIST_MIN_INT; i < HIST_INTERVALS_NUM; ++i) {
+        for (unsigned i = 0; i < HIST_INTERVALS_NUM; ++i) {
           if ((x > (SIGMA_NOISE +   i   * hist_int)) &&
               (x < (SIGMA_NOISE + (i+1) * hist_int))) {
             counts_in_hist++;
@@ -70,10 +71,10 @@ void CoeffsEstimator::processRlsData(const DATA_PACKAGE_AD& data)
     case eCE_CalcCoeffs: {
       unsigned sum = 0;
 
-      for (unsigned i = HIST_MIN_INT; i < HIST_INTERVALS_NUM; ++i)
+      for (unsigned i = 0; i < HIST_INTERVALS_NUM; ++i)
         cout << hist[i] << endl;
 
-      for (unsigned i = HIST_MIN_INT; i < HIST_INTERVALS_NUM; ++i) {
+      for (unsigned i = 0; i < HIST_INTERVALS_NUM; ++i) {
         sum += hist[i];
         cout << "sum = " << sum << " " << " "
              << counts_in_hist << " "
@@ -81,13 +82,13 @@ void CoeffsEstimator::processRlsData(const DATA_PACKAGE_AD& data)
 
         if (sum > (counts_in_hist) * high_level_percent / 100)
         {
-          high_level_amp = i * hist_int;
+          high_level_amp = (i+1) * hist_int;
 
           cout << i << " " << high_level_amp << endl;
 
-          auto_coeffs.A = 1.0;
+          auto_coeffs.A = 1.0 / k_lin;
           auto_coeffs.B = 0.0;
-          auto_coeffs.C = 2 * log(255)/log(high_level_amp);
+          auto_coeffs.C = 2 * log(255)/log(high_level_amp / k_lin);
 
           cout << auto_coeffs.A << " "
                << auto_coeffs.B << " "

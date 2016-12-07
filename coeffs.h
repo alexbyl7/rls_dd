@@ -4,12 +4,10 @@
 #include "rls_header.h"
 
 #define HIST_INTERVALS_NUM 100
-#define HIST_MIN_INT 3
 #define DATA_ACCUM_NUM 800
 #define DATA_MIN_DIST 500
 #define DATA_MAX_DIST 2000
-
-#define SIGMA_NOISE 500
+#define SIGMA_NOISE 10000
 
 #include <iostream>
 
@@ -58,6 +56,7 @@ class CoeffsEstimator
     float    max_ampl;
     unsigned data_counter;
     unsigned high_level_percent;
+    double   k_lin;
 
     unsigned hist[HIST_INTERVALS_NUM];
     double   hist_int;
