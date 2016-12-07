@@ -27,7 +27,7 @@ class Drawer : public QObject
     void decreaseScaleFactor() {scale_factor -= 0.01;}
     void setCenter(const QPoint& cent) {center = cent;}
     void setCoeffs(const Coeffs& coef) {coeffs = coef;}
-    void setCoeffsMode(CoeffsMode m) {coeffs_est.setCoeffsMode(m);}
+    void setCoeffsMode(CoeffsModes m) {coeffs_est.setCoeffsMode(m);}
     void setCoeffsManual() {auto_coeffs = false;}
 
   public slots:

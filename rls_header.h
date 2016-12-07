@@ -7,6 +7,8 @@
 #define DATA_LEN_SPECTR_4K_16B  4096 // short
 #define DATA_LEN_LOG_SPECTR_4K  4096 // uchar
 
+#define MAX_LINE_POS  4096
+
 #pragma pack(push)
 #pragma pack(1)
 

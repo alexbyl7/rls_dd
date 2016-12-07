@@ -36,8 +36,9 @@ void Drawer::process()
   painter.scale(scale_factor, scale_factor);
 
   DATA_PACKAGE_AD data = parser->getData();
-  coeffs_est.addRlsData(data);
-  painter.rotate(360.0 * data.data.line_pos.pos / 4096);
+  coeffs_est.processRlsData(data);
+
+  painter.rotate(360.0 * data.data.line_pos.pos / MAX_LINE_POS);
 
   Coeffs cfs = coeffs_est.getCoeffs();
 

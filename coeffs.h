@@ -3,6 +3,19 @@
 
 #include "rls_header.h"
 
+#define HIST_INTERVALS_NUM 100
+#define HIST_MIN_INT 3
+#define DATA_ACCUM_NUM 800
+#define DATA_MIN_DIST 500
+#define DATA_MAX_DIST 2000
+
+#define SIGMA_NOISE 500
+
+#include <iostream>
+
+using namespace std;
+
+
 struct Coeffs {
   Coeffs(double a, double b, double c):
     A(a), B(b), C(c)
@@ -11,9 +24,16 @@ struct Coeffs {
   double A, B, C;
 };
 
-enum CoeffsMode {
-  eCoeffsManual,
-  eCoeffsAuto
+enum CoeffsModes {
+  eCoeffsAuto,
+  eCoeffsManual
+};
+
+enum CoeffsEstStates {
+  eCE_FindMaxAmpl,
+  eCE_FormHist,
+  eCE_CalcCoeffs,
+  eCE_Formed
 };
 
 class CoeffsEstimator
@@ -22,20 +42,33 @@ class CoeffsEstimator
     CoeffsEstimator();
 
     const Coeffs& getCoeffs();
-    void addRlsData(const DATA_PACKAGE_AD&);
+    void processRlsData(const DATA_PACKAGE_AD&);
 
     void setManA(int a) {man_coeffs.A = (double)a / 100;}
     void setManB(int b) {man_coeffs.B = (double)b;}
     void setManC(int c) {man_coeffs.C = (double)c / 100;}
-    void setCoeffsMode(CoeffsMode m) {mode = m;}
+    void setCoeffsMode(CoeffsModes m)
+    {
+      mode = m;
+      cout << "Mode changed to " << mode << endl;
+    }
 
   private:
     //std::deque<DATA_PACKAGE_AD> data_cont;
-    float max_ampl;
+    float    max_ampl;
+    unsigned data_counter;
+    unsigned high_level_percent;
 
-    CoeffsMode mode;
-    Coeffs     man_coeffs,
-               auto_coeffs;
+    unsigned hist[HIST_INTERVALS_NUM];
+    double   hist_int;
+    double   high_level_amp;
+    unsigned counts_in_hist;
+
+    CoeffsModes     mode;
+    CoeffsEstStates state;
+
+    Coeffs man_coeffs,
+           auto_coeffs;
 };
 
 #endif // COEFFS_H
