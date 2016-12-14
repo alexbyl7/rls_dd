@@ -25,6 +25,11 @@ Widget::Widget(Drawer& drw) :
   connect(ui->spinBox_linewidth, SIGNAL(valueChanged(int)),
                         &drawer, SLOT (setLineWidth(int)));
 
+ /* connect(ui->pushButtonStart, SIGNAL(pressed()),
+                        &drawer, SLOT (startProcess())); */
+  connect(ui->pushButtonStart, SIGNAL(pressed()),
+                        &drawer, SLOT (stopProcess()));
+
   ui->graphicsView->setScene(&scene);
 }
 

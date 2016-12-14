@@ -2,12 +2,7 @@
 #define COEFFS_H
 
 #include "rls_header.h"
-
-#define HIST_INTERVALS_NUM 100
-#define DATA_ACCUM_NUM 800
-#define DATA_MIN_DIST 500
-#define DATA_MAX_DIST 2000
-#define SIGMA_NOISE 10000
+#include "tools.h"
 
 #include <iostream>
 

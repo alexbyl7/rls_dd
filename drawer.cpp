@@ -23,9 +23,14 @@ Drawer::~Drawer()
   delete parser;
 }
 
-void Drawer::startProcess(double ms)
+void Drawer::startProcess()
 {
-  timer.start(ms);
+  timer.start(10.0);
+}
+
+void Drawer::stopProcess()
+{
+  timer.stop();
 }
 
 void Drawer::process()
@@ -38,6 +43,8 @@ void Drawer::process()
   DATA_PACKAGE_AD data = parser->getData();
   coeffs_est.processRlsData(data);
 
+  bool have_int = interf_proc.checkInterference(data);
+
   painter.rotate(360.0 * data.data.line_pos.pos / MAX_LINE_POS);
 
   Coeffs cfs = coeffs_est.getCoeffs();
@@ -49,8 +56,10 @@ void Drawer::process()
 
     if (col < 0)   col = 0;
     if (col > 255) col = 255;
-
-    painter.setPen( QPen(QColor(col,col,col), line_width, Qt::SolidLine) );
+    if (have_int)
+      painter.setPen( QPen(QColor(255, 0, 0), line_width, Qt::SolidLine) );
+    else
+      painter.setPen( QPen(QColor(col,col,col), line_width, Qt::SolidLine) );
     painter.drawLine(i*step,i*step, (i+1)*step,(i+1)*step);
   }
 

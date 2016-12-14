@@ -16,12 +16,16 @@ SOURCES += main.cpp\
         widget.cpp \
     parser.cpp \
     drawer.cpp \
-    coeffs.cpp
+    coeffs.cpp \
+    tools.cpp \
+    interference.cpp
 
 HEADERS  += widget.h \
     parser.h \
     rls_header.h \
     drawer.h \
-    coeffs.h
+    coeffs.h \
+    tools.h \
+    interference.h
 
 FORMS    += widget.ui

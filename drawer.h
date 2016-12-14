@@ -10,6 +10,7 @@
 
 #include "parser.h"
 #include "coeffs.h"
+#include "interference.h"
 
 class Drawer : public QObject
 {
@@ -20,8 +21,6 @@ class Drawer : public QObject
   public:
     Drawer();
     ~Drawer();
-
-    void startProcess(double);
 
     void increaseScaleFactor() {scale_factor += 0.01;}
     void decreaseScaleFactor() {scale_factor -= 0.01;}
@@ -34,6 +33,9 @@ class Drawer : public QObject
     void process();
     void clearScreen();
     void resetScaleToDefault();
+
+    void startProcess();
+    void stopProcess();
 
     void setCoeff_A(int a) {coeffs_est.setManA(a);}
     void setCoeff_B(int b) {coeffs_est.setManB(b);}
@@ -50,6 +52,7 @@ class Drawer : public QObject
     QPoint center;
     Coeffs coeffs;
     CoeffsEstimator coeffs_est;
+    InterferenceProcessor interf_proc;
 
     double scale_factor;
     int    line_width;
