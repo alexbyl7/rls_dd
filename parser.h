@@ -1,7 +1,7 @@
 #ifndef DATA_DRAWER_H
 #define DATA_DRAWER_H
 
-#define DATA_OFFSET 45000
+#define DATA_OFFSET 66000
 
 #include <QObject>
 #include <fstream>
@@ -29,9 +29,5 @@ public slots:
 signals:
   void finished();
 };
-
-
-
-
 
 #endif // DATA_DRAWER_H

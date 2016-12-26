@@ -47,12 +47,27 @@ void Drawer::process()
     counter++;
 
     DATA_PACKAGE_AD data = parser->getData();
-    coeffs_est.processRlsData(data);
 
     InterfInfoContainer info_cont = interf_proc.getInterfInfo(data);
 
-    if (!info_cont.empty())
-      cout << "counter = " << counter << endl;
+#if 1
+    // Cut interference
+    for (InterfInfoContainer::iterator it = info_cont.begin();
+                                     it != info_cont.end(); ++it) {
+      double begin, end;
+      if (it->type == eLongInterf) {
+        begin = 0; end = DATA_LEN_SPECTR_4K;
+      } else {
+        begin = it->begin_dist; end = it->end_dist;
+      }
+      for (int i = begin; i < end; ++i)
+        data.data.out_data.spectr[i] = 0;
+    }
+#endif
+
+    coeffs_est.processRlsData(data);
+
+    //if (!info_cont.empty()) cout << "counter = " << counter << endl;
 
     painter.rotate(360.0 * data.data.line_pos.pos / MAX_LINE_POS);
 
@@ -71,32 +86,30 @@ void Drawer::process()
       painter.drawLine(i*step,i*step, (i+1)*step,(i+1)*step);
     }
 
-    if (!info_cont.empty())
-      cout << "info_cont size = " << info_cont.size() << endl;
-
+#if 0
+    // Draw interference
     for (InterfInfoContainer::iterator it = info_cont.begin();
             it != info_cont.end(); ++it) {
 
-        switch(it->type) {
-          case eShortInterf:
-            cout << data.data.line_pos.line_num << " line, from "
-                 << it->begin_dist << " to " << it->end_dist << endl;
+      switch(it->type) {
+        case eShortInterf:
+          cout << data.data.line_pos.line_num << " line, from "
+               << it->begin_dist << " to " << it->end_dist << endl;
 
-            painter.setPen(QPen(Qt::yellow, 2*line_width, Qt::SolidLine));
-            painter.drawLine(it->begin_dist*step, it->begin_dist*step,
-                             it->end_dist*step,   it->end_dist*step);
-            break;
-          case eLongInterf:
-            cout << data.data.line_pos.line_num << " line, all dist " << endl;
+          painter.setPen(QPen(Qt::yellow, 2*line_width, Qt::SolidLine));
+          painter.drawLine(it->begin_dist*step, it->begin_dist*step,
+                           it->end_dist*step,   it->end_dist*step);
+          break;
+        case eLongInterf:
+          cout << data.data.line_pos.line_num << " line, all dist " << endl;
 
-            painter.setPen(QPen(Qt::red, 2*line_width, Qt::SolidLine));
-            painter.drawLine(0,0, DATA_LEN_SPECTR_4K,DATA_LEN_SPECTR_4K);
-            break;
-          default: break;
-        }
-
-
+          painter.setPen(QPen(Qt::red, 2*line_width, Qt::SolidLine));
+          painter.drawLine(0,0, DATA_LEN_SPECTR_4K,DATA_LEN_SPECTR_4K);
+          break;
+        default: break;
+      }
     }
+#endif
 
     painter.rotate(- 360.0 * data.data.line_pos.pos / MAX_LINE_POS);
   }
