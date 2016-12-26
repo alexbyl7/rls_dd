@@ -57,6 +57,8 @@ class Drawer : public QObject
     double scale_factor;
     int    line_width;
     bool   auto_coeffs;
+
+    unsigned counter;
 };
 
 #endif // DRAWER_H

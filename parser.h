@@ -1,6 +1,8 @@
 #ifndef DATA_DRAWER_H
 #define DATA_DRAWER_H
 
+#define DATA_OFFSET 45000
+
 #include <QObject>
 #include <fstream>
 

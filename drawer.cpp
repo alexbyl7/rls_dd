@@ -9,6 +9,8 @@ Drawer::Drawer():
   pixmap = new QPixmap(600, 600);
   pixmap->fill(Qt::white);
 
+  counter = DATA_OFFSET;
+
   line_width = 30;
   resetScaleToDefault();
 
@@ -25,7 +27,7 @@ Drawer::~Drawer()
 
 void Drawer::startProcess()
 {
-  timer.start(10.0);
+  timer.start(1000.0);
 }
 
 void Drawer::stopProcess()
@@ -40,27 +42,63 @@ void Drawer::process()
   painter.translate(center);
   painter.scale(scale_factor, scale_factor);
 
-  DATA_PACKAGE_AD data = parser->getData();
-  coeffs_est.processRlsData(data);
+  for (int n = 0; n < 200; ++n) {
 
-  bool have_int = interf_proc.checkInterference(data);
+    counter++;
 
-  painter.rotate(360.0 * data.data.line_pos.pos / MAX_LINE_POS);
+    DATA_PACKAGE_AD data = parser->getData();
+    coeffs_est.processRlsData(data);
 
-  Coeffs cfs = coeffs_est.getCoeffs();
+    InterfInfoContainer info_cont = interf_proc.getInterfInfo(data);
 
-  int step = 1;
-  for (int i = 0; i < DATA_LEN_SPECTR_4K; i++) {
-    float x = data.data.out_data.spectr[i];
-    int col = pow(cfs.A * x + cfs.B, cfs.C);
+    if (!info_cont.empty())
+      cout << "counter = " << counter << endl;
 
-    if (col < 0)   col = 0;
-    if (col > 255) col = 255;
-    if (have_int)
-      painter.setPen( QPen(QColor(255, 0, 0), line_width, Qt::SolidLine) );
-    else
+    painter.rotate(360.0 * data.data.line_pos.pos / MAX_LINE_POS);
+
+    Coeffs cfs = coeffs_est.getCoeffs();
+
+    int step = 1;
+    for (int i = 0; i < DATA_LEN_SPECTR_4K; i++) {
+      float x = data.data.out_data.spectr[i];
+      int col = pow(cfs.A * x + cfs.B, cfs.C);
+
+      if (col < 0)   col = 0;
+      if (col > 255) col = 255;
+
       painter.setPen( QPen(QColor(col,col,col), line_width, Qt::SolidLine) );
-    painter.drawLine(i*step,i*step, (i+1)*step,(i+1)*step);
+
+      painter.drawLine(i*step,i*step, (i+1)*step,(i+1)*step);
+    }
+
+    if (!info_cont.empty())
+      cout << "info_cont size = " << info_cont.size() << endl;
+
+    for (InterfInfoContainer::iterator it = info_cont.begin();
+            it != info_cont.end(); ++it) {
+
+        switch(it->type) {
+          case eShortInterf:
+            cout << data.data.line_pos.line_num << " line, from "
+                 << it->begin_dist << " to " << it->end_dist << endl;
+
+            painter.setPen(QPen(Qt::yellow, 2*line_width, Qt::SolidLine));
+            painter.drawLine(it->begin_dist*step, it->begin_dist*step,
+                             it->end_dist*step,   it->end_dist*step);
+            break;
+          case eLongInterf:
+            cout << data.data.line_pos.line_num << " line, all dist " << endl;
+
+            painter.setPen(QPen(Qt::red, 2*line_width, Qt::SolidLine));
+            painter.drawLine(0,0, DATA_LEN_SPECTR_4K,DATA_LEN_SPECTR_4K);
+            break;
+          default: break;
+        }
+
+
+    }
+
+    painter.rotate(- 360.0 * data.data.line_pos.pos / MAX_LINE_POS);
   }
 
   emit updateScreen(pixmap);
