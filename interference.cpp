@@ -9,10 +9,10 @@ InterfInfoContainer InterferenceProcessor::getInterfInfo(const DATA_PACKAGE_AD& 
 {
   InterfInfoContainer ic;
 
-  ic = checkInterf(data, eLongInterf, 1000, 30, 0.03);
+  ic = checkInterf(data, eLongInterf, 1000, 10, 0.05);
 
   if (ic.empty())
-    ic = checkInterf(data, eShortInterf, 200, 30, 0.03);
+    ic = checkInterf(data, eShortInterf, 100, 10, 0.03);
 
   return ic;
 }

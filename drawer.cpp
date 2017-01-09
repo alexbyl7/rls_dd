@@ -50,7 +50,7 @@ void Drawer::process()
 
     InterfInfoContainer info_cont = interf_proc.getInterfInfo(data);
 
-#if 1
+#if 0
     // Cut interference
     for (InterfInfoContainer::iterator it = info_cont.begin();
                                      it != info_cont.end(); ++it) {
@@ -67,7 +67,7 @@ void Drawer::process()
 
     coeffs_est.processRlsData(data);
 
-    //if (!info_cont.empty()) cout << "counter = " << counter << endl;
+    if (!info_cont.empty()) cout << "counter = " << counter << endl;
 
     painter.rotate(360.0 * data.data.line_pos.pos / MAX_LINE_POS);
 
@@ -86,7 +86,7 @@ void Drawer::process()
       painter.drawLine(i*step,i*step, (i+1)*step,(i+1)*step);
     }
 
-#if 0
+#if 1
     // Draw interference
     for (InterfInfoContainer::iterator it = info_cont.begin();
             it != info_cont.end(); ++it) {
