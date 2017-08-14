@@ -16,7 +16,7 @@ Drawer::Drawer():
 
   parser = new Parser();
 
-  connect(&timer, SIGNAL(timeout()), SLOT(process()));
+ // connect(&timer, SIGNAL(timeout()), SLOT(process()));
 }
 
 Drawer::~Drawer()
@@ -27,7 +27,7 @@ Drawer::~Drawer()
 
 void Drawer::startProcess()
 {
-  timer.start(1000.0);
+  timer.start(200.0);
 }
 
 void Drawer::stopProcess()
@@ -35,18 +35,31 @@ void Drawer::stopProcess()
   timer.stop();
 }
 
-void Drawer::process()
+void Drawer::process(DataContainer data_cont)
 {
   painter.begin(pixmap);
   painter.setRenderHint(QPainter::Antialiasing);
   painter.translate(center);
   painter.scale(scale_factor, scale_factor);
 
-  for (int n = 0; n < 200; ++n) {
+  //for (int n = 0; n < 200; ++n) {
+
+  //cout << "Buf_size = " << udp->readBufferSize() << endl;
+
+ // while (udp->hasPendingDatagrams()) {
+   for (DataContainer::iterator it = data_cont.begin(); it != data_cont.end(); ++it) {
 
     counter++;
 
-    DATA_PACKAGE_AD data = parser->getData();
+    DATA_PACKAGE_AD data;
+
+    //data = parser->getData();
+
+    //QByteArray
+
+    //udp->readDatagram((char*)&data, sizeof(DATA_PACKAGE_AD));
+
+    data = *it;
 
     InterfInfoContainer info_cont = interf_proc.getInterfInfo(data);
 
@@ -86,7 +99,7 @@ void Drawer::process()
       painter.drawLine(i*step,i*step, (i+1)*step,(i+1)*step);
     }
 
-#if 1
+#if 0
     // Draw interference
     for (InterfInfoContainer::iterator it = info_cont.begin();
             it != info_cont.end(); ++it) {

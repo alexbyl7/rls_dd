@@ -17,9 +17,10 @@ public:
   ~Parser() {}
 
   void openFile();
-  const DATA_PACKAGE_AD getData();
+  DATA_PACKAGE_AD getData();
 
 private:
+  DATA_PACKAGE_AD rls_data;
   std::ifstream file;
   unsigned length;
 

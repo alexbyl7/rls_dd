@@ -30,7 +30,8 @@ class Drawer : public QObject
     void setCoeffsManual() {auto_coeffs = false;}
 
   public slots:
-    void process();
+    //void process();
+    void process(DataContainer);
     void clearScreen();
     void resetScaleToDefault();
 

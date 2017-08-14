@@ -1,3 +1,5 @@
+#include <vector>
+
 #ifndef RLS_HEADER_H
 #define RLS_HEADER_H
 
@@ -45,6 +47,8 @@ typedef struct {
     //Data block
     DATA_LINE_4K_AD data;
 } DATA_PACKAGE_AD;
+
+typedef std::vector<DATA_PACKAGE_AD> DataContainer;
 
 #pragma pack(pop)
 
